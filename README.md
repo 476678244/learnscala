@@ -1,3 +1,3 @@
 This is learning scala programming project.
 
-Use FreeSpec for test.
+Use scalatest library 1.6.1 for test.
