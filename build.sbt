@@ -1,21 +1,7 @@
-name := "learn_scala"
- 
-version := "0.1"
- 
-scalaVersion := "2.9.2"
- 
-//seq(cucumberSettings : _*)
+name := "learnscala"
 
-unmanagedBase <<= baseDirectory { base => base / "manageLib" }
+version := "1.0"
 
-unmanagedJars in Compile <<= baseDirectory map { base => (base ** "*.jar").classpath }
+scalaVersion := "2.11.7"
 
-//unmanagedJars in Compile <++= baseDirectory map { base =>
-//    val baseDirectories = (base / "libA") +++ (base / "b" / "lib") +++ (base / "libC")
-//    val customJars = (baseDirectories ** "*.jar") +++ (base / "d" / "my.jar")
-//    customJars.classpath
-//}
-
-libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "1.6.1" % "test"
-)
+libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
