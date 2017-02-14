@@ -12,6 +12,7 @@ class ExampleSpec extends FlatSpec with Matchers {
     stack.push(2)
     stack.pop() should be (2)
     stack.pop() should be (1)
+    assert(stack.size == 0)
   }
 
   it should "throw NoSuchElementException if an empty stack is popped" in {
