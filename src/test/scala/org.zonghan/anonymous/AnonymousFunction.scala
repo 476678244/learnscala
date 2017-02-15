@@ -8,6 +8,8 @@ object AnonymousFunction {
     * Method to increment an integer by one.
     */
   val plusOne = (x: Int) => x + 1
+
+  def plusOne2(x: Int) = x + 1
   /**
     * Main method
     * @param args application arguments
