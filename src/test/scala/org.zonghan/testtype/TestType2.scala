@@ -22,4 +22,11 @@ object TestType2 extends App {
 
   val hatch: (() => Bird) = (() => new Chicken )
 
+  def biophony[T <: Animal](things: Seq[T]) = things map (_.sound)
+  println(biophony(Seq(new Chicken, new Bird)))
+
+  val flock = List(new Bird, new Bird)
+  println(((new Animal) :: flock).getClass)
+  println(((new Chicken) :: flock).getClass)
+
 }
