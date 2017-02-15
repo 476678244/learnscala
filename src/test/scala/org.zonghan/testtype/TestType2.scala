@@ -29,4 +29,17 @@ object TestType2 extends App {
   println(((new Animal) :: flock).getClass)
   println(((new Chicken) :: flock).getClass)
 
+  def count[A](l: List[A]) = l.size
+
+  def count2(l: List[_]) = l.size
+
+  def count3(l: List[T forSome { type T }]) = l.size
+
+  def drop1(l: List[_]) = l.tail
+
+  def drop2(l: List[T forSome { type T }]) = l.tail
+
+  def hashcodes(l: Seq[_ <: AnyRef]) = l map (x => x.hashCode)
+
+  hashcodes(Seq("one", "two", "three"))
 }
