@@ -25,7 +25,11 @@ object StringIteratorTest {
   def main(args: Array[String]) {
     class Iter extends StringIterator("Hello World ") with RichIterator
     val iter = new Iter
-    iter.foreach(ch => println(ch))
+
+    def f(ch: Char) = {
+      println(ch)
+    }
+    iter foreach f
     val iter2 = new Iter
     iter2 foreach println
   }

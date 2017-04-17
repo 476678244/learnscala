@@ -3,6 +3,7 @@ package org.zonghan.keyimplicit
 /**
   * Created by wuzonghan on 17/2/15.
   * http://fangjian0423.github.io/2015/12/20/scala-implicit/
+  * https://github.com/ColZer/DigAndBuried/blob/master/spark/scala-implicit.md
   */
 object ImplicitTest extends App {
 

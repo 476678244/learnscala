@@ -13,6 +13,7 @@ object Test extends App {
 
   val title = emailFromJohn.title
   println(title) // prints "Greetings From John!"
+  println(emailFromJohn)
 
   val editedEmail = emailFromJohn.copy(title = "I am learning Scala!", body = "It's so cool!")
   println(emailFromJohn) // prints "Email(john.doe@mail.com,Greetings From John!,Hello World!)"
