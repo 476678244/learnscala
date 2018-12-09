@@ -4,13 +4,13 @@ import java.io.{File, FileWriter}
 
 object CueFileGenerator extends App {
 
-  val dir: String = "/Users/wuzonghan/Music/张靓颖"
+  val dir: String = "/Users/wuzonghan/Music/Converted by MediaHuman/BIZET L'ARLESIENNE SUITE NO.1 & 2, CARMEN SUITE"
 
-  val performer: String = "张靓颖"
+  val performer: String = "BIZET"
 
-  val album: String = "华语乐坛十大流行天后-张靓颖"
+  val album: String = "L'ARLESIENNE SUITE NO.1 & 2, CARMEN SUITE"
 
-  val musicType: String = ".wav"
+  val musicType: String = ".dsf"
 
   val cueFilePath = s"${dir}/cue.cue"
 
@@ -27,7 +27,19 @@ object CueFileGenerator extends App {
     }).zipWithIndex.foreach(data => {
       val (f, i) = data
       if (f.isFile && f.getName.endsWith(musicType)) {
-        new TrackItemDataGenerator(performer, f.getName.replace(musicType, ""), f.getName, (i+1).toString).generate(fw)
+        val rawTitle = f.getName.replace(musicType, "")
+        val startSub = Math.max(
+          Math.max(rawTitle.indexOf("."), {
+              if (rawTitle.lastIndexOf("-") > 0)
+                rawTitle.lastIndexOf("-") + 1
+              else
+                0
+            }
+          ),
+          0
+        )
+        val trackTitle = rawTitle.substring(startSub).trim
+        new TrackItemDataGenerator(performer, trackTitle, f.getName, (i+1).toString).generate(fw)
       }
     })
   } finally {
