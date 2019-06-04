@@ -5,4 +5,6 @@ class MinMax {
 		val result = inputs.sorted
 		return Array(result(0),result(result.length -1))
 	}
+
+	def testInt (x : Int) = println(x)
 }

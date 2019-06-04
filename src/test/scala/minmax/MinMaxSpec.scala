@@ -2,7 +2,7 @@ package minmax
 
 import org.scalatest._
 
-class MinMaxSpec extends FlatSpec with ShouldMatchers {
+class MinMaxSpec extends FlatSpec with Matchers {
 
 	it should "return 1 and 5 in array {1,2,3,4,5}" in {
 		val minmax = new MinMax()

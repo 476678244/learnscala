@@ -1,39 +1,39 @@
 import org.scalatest._
 import org.scalatest.matchers._
 
-class SetSpec extends FreeSpec with GivenWhenThen with ShouldMatchers{
+class SetSpec extends FreeSpec with GivenWhenThen with Matchers{
 		"A Set" -{
 			"New set should be empty" in {
-				given("new set")
+				Given("new set")
 				var set = Set()
-				then("new set should be empty")
+				Then("new set should be empty")
 				assert(set.isEmpty)
-				and("size is 0")
+				And("size is 0")
 				set.size should be (0)
 			}
 
 			"Set add element" in {
-				given("a new set")
+				Given("a new set")
 				var s = Set[Int]()
-				when("add 1 element to set")
+				When("add 1 element to set")
 				s += 1
-				then("set not empty")
+				Then("set not empty")
 				assert(!s.isEmpty)
-				and("set size should be 1")
+				And("set size should be 1")
 				s.size should be (1)
 			}
 
 			"Set can be filter index" in {
-				given("New Set[Int] from 1 to 10 number")
+				Given("New Set[Int] from 1 to 10 number")
 				var x = Set[Int]()
 				(1 to 10).map( x+=_)
-				when("filter set and mod by 2")
+				When("filter set and mod by 2")
 				var b = x.filter(_ %2 ==0)
-				then("have a new set")
+				Then("have a new set")
 				assert(null != b)
-				and("new set is size")
+				And("new set is size")
 				b.size should be (5)
-				and("new set contains 2,4,6,8,10")
+				And("new set contains 2,4,6,8,10")
 				assert(b.contains(2))
 				assert(b.contains(4))
 				assert(b.contains(6))
@@ -42,11 +42,11 @@ class SetSpec extends FreeSpec with GivenWhenThen with ShouldMatchers{
 			}
 
 			"Set to List" in {
-				given("New Set[Int] as x")
+				Given("New Set[Int] as x")
 				var x = Set[Int]()
-				when("use to List to y")
+				When("use to List to y")
 				var y = x.toList
-				then("y is be the same instance as x")
+				Then("y is be the same instance as x")
 				y should be theSameInstanceAs (x.toList)
 			}
 

@@ -1,6 +1,6 @@
 import org.scalatest._
 
-class BlockSpec extends FlatSpec with ShouldMatchers {
+class BlockSpec extends FlatSpec with Matchers {
 	val block = new Block(2,2,2)
 
 	it should "return when getWidth" in {
