@@ -4,11 +4,11 @@ import java.io.{File, FileWriter}
 
 object CueFileGenerator extends App {
 
-  val dir: String = "/Users/wuzonghan/Music/Avi.Avital.-.[Vivaldi].专辑.(Flac)"
+  val dir: String = "/Users/wuzonghan/Music/Julia.Fischer.&amp;.Martin.Helmchen.-.[Schubert.Complete.Works.for.Violin.&amp;.Piano.(CD.1)].专辑.(Flac)"
 
-  val performer: String = "AVI AVITAL"
+  val performer: String = "Julia.Fischer.&.Martin.Helmchen"
 
-  val album: String = "Vivaldi"
+  val album: String = "Schubert.Complete.Works.for.Violin.&.Piano.(CD.1)"
 
   val musicType: String = ".flac"
 
@@ -22,7 +22,9 @@ object CueFileGenerator extends App {
   val fw = new FileWriter(cueFilePath)
   try {
     new GlobalDataGenerator(performer, album).generate(fw)
-    new File(dir).listFiles().sortBy(f=> {
+    new File(dir).listFiles().filter(f => {
+      !f.getName.startsWith(".")
+    }).sortBy(f=> {
       f.getName
     }).zipWithIndex.foreach(data => {
       val (f, i) = data
@@ -32,6 +34,8 @@ object CueFileGenerator extends App {
           Math.min(rawTitle.indexOf("."), {
               if (rawTitle.indexOf("-") > 0)
                 rawTitle.indexOf("-") + 1
+              else if (rawTitle.indexOf("_") > 0)
+                rawTitle.indexOf("_") + 1
               else
                 0
             }
