@@ -4,15 +4,17 @@ import java.io.{File, FileWriter}
 
 object CueFileGenerator extends App {
 
-  val dir: String = "/Users/wuzonghan/Music/Julia.Fischer.&amp;.Martin.Helmchen.-.[Schubert.Complete.Works.for.Violin.&amp;.Piano.(CD.1)].专辑.(Flac)"
+  val dir: String = "/Users/wuzonghan/Music/周传雄合集(25CD).flac/周传雄 - 1997.我的心太乱[百代].flac"
 
-  val performer: String = "Julia.Fischer.&.Martin.Helmchen"
+  val performer: String = "周传雄"
 
-  val album: String = "Schubert.Complete.Works.for.Violin.&.Piano.(CD.1)"
+  val album: String = "我的心太乱"
 
   val musicType: String = ".flac"
 
   val cueFilePath = s"${dir}/cue.cue"
+
+  val skipStr = s"_FR725SACD_2ch256"
 
   val cueFile = new File(cueFilePath)
   if (cueFile.exists())
@@ -31,7 +33,10 @@ object CueFileGenerator extends App {
       if (f.isFile && f.getName.endsWith(musicType)) {
         val rawTitle = f.getName.replace(musicType, "")
         val startSub = Math.max(
-          Math.min(rawTitle.indexOf("."), {
+          if (rawTitle.indexOf(".") > 0)
+            rawTitle.indexOf(".")
+          else {
+            Math.max(rawTitle.indexOf("."), {
               if (rawTitle.indexOf("-") > 0)
                 rawTitle.indexOf("-") + 1
               else if (rawTitle.indexOf("_") > 0)
@@ -39,10 +44,11 @@ object CueFileGenerator extends App {
               else
                 0
             }
-          ),
+            )
+          },
           0
         )
-        val trackTitle = rawTitle.substring(startSub).trim
+        val trackTitle = rawTitle.substring(startSub).trim.replace(skipStr, "")
         new TrackItemDataGenerator(performer, trackTitle, f.getName, (i+1).toString).generate(fw)
       }
     })
