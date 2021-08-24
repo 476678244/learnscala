@@ -1,3 +1,4 @@
+package org.zonghan.leetcode
 
 object ScalaSearchRange extends App {
 
