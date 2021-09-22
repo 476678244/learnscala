@@ -63,11 +63,12 @@ object TestBBB extends App {
   for (i <- courses) {
     for(j <- courses) {
       if (i != j) {
-        if (map(i).contains(j) && map(j).contains(i))
-          return false
+        if (map(i).contains(j) && map(j).contains(i)) {
+          //          return false
+        }
       }
     }
   }
-  return true
+//  return true
 
 }
