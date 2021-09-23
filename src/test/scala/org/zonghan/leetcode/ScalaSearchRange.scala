@@ -12,6 +12,50 @@ object ScalaSearchRange extends App {
     * 如果数组中不存在目标值 target，返回 [-1, -1]
     * 你可以设计并实现时间复杂度为 O(log n) 的算法解决此问题吗？
     * */
+
+  def searchRangeV2(nums: Array[Int], target: Int): Array[Int] = {
+//    println(nums.length)
+    if (nums == null || nums.length == 0)
+      return Array(-1, -1)
+    val l = searchLeft(nums, target)
+    val r = searchRight(nums, target)
+    Array(l, r)
+  }
+
+  // 5,6,6,8,8,10
+  // 5,6,7,8,8,10
+  def searchLeft(nums: Array[Int], target: Int): Int = {
+    var l = 0
+    var r = nums.length - 1
+    while (l < r) {
+      val mid = l + (r - l) / 2
+      if (nums(mid) == target) {
+        r = mid
+      } else if (nums(mid) > target) {
+        r = mid - 1
+      } else {
+        l = mid + 1
+      }
+    }
+    if (target == nums(l)) l else -1
+  }
+
+  def searchRight(nums: Array[Int], target: Int): Int = {
+    var l = 0
+    var r = nums.length - 1
+    while (l < r) {
+      val mid = l + (r - l + 1) / 2
+      if (nums(mid) == target) {
+        l = mid
+      } else if (nums(mid) > target) {
+        r = mid - 1
+      } else {
+        l = mid + 1
+      }
+    }
+    if (target == nums(r)) r else -1
+  }
+
   def searchRange(nums: Array[Int], target: Int): Array[Int] = {
     import java.util
     val existIdx = util.Arrays.binarySearch(nums, target)
@@ -36,10 +80,10 @@ object ScalaSearchRange extends App {
     else findOtherViaLast(nums, idx - 1, target)
   }
 
-  println(searchRange(Array(5, 7, 7, 8, 8, 10), 8).mkString(","))
-  println(searchRange(Array(5, 7, 7, 8, 8, 8, 10), 8).mkString(","))
-  println(searchRange(Array(1), 1).mkString(","))
-  println(searchRange(Array(), 8).mkString(","))
-  println(searchRange(Array(2, 2), 2).mkString(","))
+  println(searchRangeV2(Array(5, 7, 7, 8, 8, 10), 8).mkString(","))
+  println(searchRangeV2(Array(5, 7, 7, 8, 8, 8, 10), 8).mkString(","))
+  println(searchRangeV2(Array(1), 1).mkString(","))
+  println(searchRangeV2(Array(), 8).mkString(","))
+  println(searchRangeV2(Array(2, 2), 2).mkString(","))
 }
 
