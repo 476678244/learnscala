@@ -1,4 +1,4 @@
-package org.zonghan.leetcode
+package org.zonghan.interview
 
 import scala.collection.mutable
 
@@ -44,12 +44,12 @@ object TestBBB extends App {
   val fineSet = Set(2)
   // Set(2,1,3,4,5,6)
 
-  map.put(2, Set(1,3))
+  map.put(2, Set(1, 3))
   // Set(2)
   // Set(2,1)
-  map.put(1, Set(3,4))
+  map.put(1, Set(3, 4))
   // Set(2,1,3)
-  map.put(3, Set(5,6))
+  map.put(3, Set(5, 6))
 
   map.put(10, Set(2))
   // Set(2,1,3,5,6)
@@ -61,7 +61,7 @@ object TestBBB extends App {
   val courses = List(0, 1, 2)
 
   for (i <- courses) {
-    for(j <- courses) {
+    for (j <- courses) {
       if (i != j) {
         if (map(i).contains(j) && map(j).contains(i)) {
           //          return false
@@ -69,6 +69,6 @@ object TestBBB extends App {
       }
     }
   }
-//  return true
+  //  return true
 
 }
