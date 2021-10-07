@@ -1,6 +1,7 @@
 package org.zonghan.leetcode
 
 //https://leetcode-cn.com/problems/delete-operation-for-two-strings/
+//https://leetcode-cn.com/problems/longest-common-subsequence/
 object MinDistance extends App {
 
   //583. 两个字符串的删除操作
