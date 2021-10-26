@@ -17,9 +17,9 @@ object MaxSubArray extends App {
     // -2,4,-3,4 => 5, 5> 4
     // fi = math.max(f1_1 + x, x)
     var fi_1 = 0
-    var totalMax = 0
-    for (x <- nums.indices) {
-      fi_1 = math.max(fi_1 + nums(x), nums(x))
+    var totalMax = nums(0)
+    for (x <- nums) {
+      fi_1 = math.max(fi_1 + x, x)
       totalMax = math.max(fi_1, totalMax)
     }
     totalMax
@@ -52,6 +52,6 @@ object MaxSubArray extends App {
 //
 //  println(maxSubArrayV2(Array(-2, 1)))
 
-  println(maxSubArrayV2(Array(-2,4,-3,4)))
+  println(maxSubArrayV2(Array(-1)))
 
 }
