@@ -4,13 +4,13 @@ import java.io.{File, FileWriter}
 
 object CueFileGenerator extends App {
 
-  val dir: String = "/Users/wuzonghan/Music/周传雄合集(25CD).flac/周传雄 - 1997.我的心太乱[百代].flac"
+  val dir: String = "/Users/zwu/Music/齐秦/齐秦2010 美丽境界"
 
-  val performer: String = "周传雄"
+  val performer: String = "齐秦"
 
-  val album: String = "我的心太乱"
+  val album: String = "美丽境界"
 
-  val musicType: String = ".flac"
+  val musicType: String = ".wav"
 
   val cueFilePath = s"${dir}/cue.cue"
 
@@ -24,11 +24,15 @@ object CueFileGenerator extends App {
   val fw = new FileWriter(cueFilePath)
   try {
     new GlobalDataGenerator(performer, album).generate(fw)
-    new File(dir).listFiles().filter(f => {
+    val validFiles = new File(dir).listFiles().filter(f => {
       !f.getName.startsWith(".")
-    }).sortBy(f=> {
+    }).sortBy(f => {
       f.getName
-    }).zipWithIndex.foreach(data => {
+    })
+    val validFileNames = validFiles.filter(f => {
+      f.isFile && f.getName.endsWith(musicType)
+    }).map(_.getName)
+    validFiles.zipWithIndex.foreach(data => {
       val (f, i) = data
       if (f.isFile && f.getName.endsWith(musicType)) {
         val rawTitle = f.getName.replace(musicType, "")
@@ -48,12 +52,35 @@ object CueFileGenerator extends App {
           },
           0
         )
-        val trackTitle = rawTitle.substring(startSub).trim.replace(skipStr, "")
-        new TrackItemDataGenerator(performer, trackTitle, f.getName, (i+1).toString).generate(fw)
+        var trackTitle = rawTitle.substring(startSub).trim.replace(skipStr, "")
+        if (findCommon(validFileNames.toList).nonEmpty) {
+          trackTitle = trackTitle.replace(findCommon(validFileNames.toList), "")
+        }
+        trackTitle = trackTitle.trim
+        new TrackItemDataGenerator(performer, trackTitle, f.getName, (i + 1).toString).generate(fw)
       }
     })
   } finally {
     fw.close()
+  }
+
+  def findCommon(names: List[String]): String = {
+    if (isCommon(names, "-")) {
+      // find via left
+      var common = "-"
+      var tryCommon = names.head(names.head.indexOf(common) - 1).toString + common
+      while (isCommon(names, tryCommon)) { // until is not common
+        common = tryCommon
+        tryCommon = names.head(names.head.indexOf(common) - 1).toString + common
+      }
+      common
+    } else ""
+  }
+
+  def isCommon(names: List[String], sub: String): Boolean = {
+    names.map(n => {
+      if (n.contains(sub)) 1 else 0
+    }).sum == names.length
   }
 
 }
