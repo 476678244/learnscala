@@ -4,11 +4,11 @@ import java.io.{File, FileWriter}
 
 object CueFileGenerator extends App {
 
-  val dir: String = "/Users/zwu/Music/齐秦/齐秦2010 美丽境界"
+  val dir: String = "/Users/zwu/Music/齐秦/齐秦1997 狼 97黄金自选辑"
 
   val performer: String = "齐秦"
 
-  val album: String = "美丽境界"
+  val album: String = "狼97黄金自选辑"
 
   val musicType: String = ".wav"
 
@@ -71,6 +71,8 @@ object CueFileGenerator extends App {
       var tryCommon = names.head(names.head.indexOf(common) - 1).toString + common
       while (isCommon(names, tryCommon)) { // until is not common
         common = tryCommon
+        if (names.head.indexOf(common) == 0)
+          return common
         tryCommon = names.head(names.head.indexOf(common) - 1).toString + common
       }
       common
