@@ -1,5 +1,6 @@
 package org.zonghan.y2022
 
+//https://leetcode-cn.com/problems/valid-parentheses/submissions/
 object IsValidSolution extends App {
 
   /*
