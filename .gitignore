@@ -4,3 +4,5 @@ target/
 *.class
 .vscode/
 .bsp
+.DS_Store
+*/.DS_Store
