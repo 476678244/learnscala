@@ -1,5 +1,6 @@
 package org.zonghan.y2022
 
+// https://leetcode-cn.com/problems/longest-palindromic-substring
 object IsPalindrome extends App {
 
   /*
