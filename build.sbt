@@ -10,3 +10,5 @@ libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.0" % Test
 libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.5.12"
 
 libraryDependencies += "org.scalaj" %% "scalaj-http" % "2.4.0"
+libraryDependencies += "org.mockito" % "mockito-core" % "4.5.1"
+libraryDependencies += "junit" % "junit" % "4.13.2"
