@@ -1,5 +1,6 @@
 package org.zonghan.y2022
 
+
 // https://leetcode-cn.com/problems/zigzag-conversion/
 object ConvertInZ extends App {
 
@@ -30,6 +31,29 @@ object ConvertInZ extends App {
   *
   * */
   def convert(s: String, numRows: Int): String = {
-    ""
+    import scala.collection.mutable.ListBuffer
+
+    val lines = (0 until numRows).map(nth => {
+      new ListBuffer[Char]()
+    }).toList
+
+    val len = (numRows + (numRows - 2))
+    if (len <= 0)
+      return s
+    s.toCharArray.zipWithIndex.foreach(data => {
+      val (c, idx) = data
+      val position = idx % len
+      if (position < numRows) {
+        lines(position).append(c)
+      } else {
+        lines(len - position).append(c)
+      }
+    })
+
+    lines.map(_.mkString).mkString
   }
+
+  println(convert("A", 1))
+  println(convert("PAYPALISHIRING", 3))
+  println(convert("PAYPALISHIRING", 4))
 }
