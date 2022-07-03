@@ -24,3 +24,4 @@ val sparkVersion = "3.2.1"
 libraryDependencies += "org.apache.spark" %% "spark-core" % sparkVersion
 libraryDependencies += "org.apache.spark" %% "spark-sql" % sparkVersion
 libraryDependencies += "org.apache.spark" %% "spark-mllib" % sparkVersion
+libraryDependencies += "io.delta" %% "delta-core" % "1.1.0"
