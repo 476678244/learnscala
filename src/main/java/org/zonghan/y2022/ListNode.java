@@ -25,4 +25,12 @@ public class ListNode {
         }
         System.out.println();
     }
+
+    public static void staticPrintList(ListNode listNode) {
+        if (listNode != null) {
+            listNode.printList();
+        } else {
+            System.out.println("empty list");
+        }
+    }
 }
