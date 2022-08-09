@@ -18,14 +18,33 @@ object RemoveNthFromEndSolution extends App {
   * */
 
   def removeNthFromEnd(head: ListNode, n: Int): ListNode = {
-    val returnHead = head
+    var returnHead = head
+    var quickPointer = head
+    var slowPointer = head
+    (1 to n).foreach(idx => {
+      quickPointer = quickPointer.next
+    })
+
+    while (quickPointer != null && quickPointer.next != null) {
+      quickPointer = quickPointer.next
+      slowPointer = slowPointer.next
+    }
+
+    if (quickPointer == null) {
+      returnHead = slowPointer.next
+    } else if (slowPointer.next != null)
+      slowPointer.next = slowPointer.next.next
+    else
+      returnHead = null
     returnHead
   }
 
   val case1 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))))
-  ListNode.staticPrintList(removeNthFromEnd(case1, 2))
+  ListNode.staticPrintList(removeNthFromEnd(case1, 5))
   val case2 = new ListNode(1)
   ListNode.staticPrintList(removeNthFromEnd(case2, 1))
   val case3 = new ListNode(1, new ListNode(2))
   ListNode.staticPrintList(removeNthFromEnd(case3, 1))
+
+
 }
