@@ -16,16 +16,55 @@ object FullPermuteSolution extends App {
   输出：[[1]]
   * */
 
+  /*  input : 1,2,3,4
+  *  21 34 -> 2 31 4 -> 23 41
+  *           2 13 4 -> 21 43
+  *  12 34 -> 31 24 -> 3 21 4 -> 32 41
+  *                 -> 3124 -> 3142
+  *  1234 ->
+  * */
+
+  import scala.collection.mutable.ListBuffer
+
   def permute(nums: Array[Int]): List[List[Int]] = {
-    List(List(0, 1), List(1, 1))
+    val res = new ListBuffer[List[Int]]()
+    val numsListBuffer = new ListBuffer[Int]()
+    nums.foreach(numsListBuffer.append(_))
+    recurveSwap(0, nums.length, numsListBuffer, res)
+    res.toList
   }
 
-  printPermute(permute(Array(1, 2, 3)))
-  printPermute(permute(Array(0, 1)))
-  printPermute(permute(Array(1)))
+  def recurveSwap(base: Int, numsLen: Int, nums: ListBuffer[Int], res: ListBuffer[List[Int]]): Unit = {
+    if (base == numsLen - 1)
+      res.append(nums.toList)
+    (base until numsLen).foreach(quick => {
+      val swapped = if (base != quick) addSwapOption(nums, base, quick) else nums
+      recurveSwap(base + 1, numsLen, swapped, res)
+    })
+  }
+
+  def addSwapOption(nums: ListBuffer[Int], i: Int, j: Int): ListBuffer[Int] = {
+    val swapped = new ListBuffer[Int]()
+    // swap
+    nums.indices.foreach(idx => {
+      if (idx == i) swapped.append(nums(j))
+      else if (idx == j) swapped.append(nums(i))
+      else swapped.append(nums(idx))
+    })
+    swapped
+  }
+
+  printPermute(permute(Array(1, 2, 3, 4)))
+  //    printPermute(permute(Array(0, 1)))
+  //    printPermute(permute(Array(1)))
 
   def printPermute(p: List[List[Int]]): Unit = {
+    println("size:" + p.size)
+    println("distinct size:" + p.distinct.size)
     val line = p.map(_.mkString(",")).mkString(" | ")
     println(line)
   }
+
+  //  println((1 until 4).mkString(" "))
+
 }
