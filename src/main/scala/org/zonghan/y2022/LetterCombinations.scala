@@ -1,5 +1,6 @@
 package org.zonghan.y2022
 
+
 //https://leetcode.cn/problems/letter-combinations-of-a-phone-number/
 object LetterCombinations extends App {
 
@@ -16,13 +17,40 @@ object LetterCombinations extends App {
     输入：digits = "2"
     输出：["a","b","c"]
   * */
+
+  import scala.collection.mutable.ListBuffer
+
+  val NUM_TO_CHARS_MAP = Map(
+    "2" -> List("a", "b", "c"),
+    "3" -> List("d", "e", "f"),
+    "4" -> List("g", "h", "i"),
+    "5" -> List("j", "k", "l"),
+    "6" -> List("m", "n", "o"),
+    "7" -> List("p", "q", "r", "s"),
+    "8" -> List("t", "u", "v"),
+    "9" -> List("w", "x", "y", "z")
+  )
+
   def letterCombinations(digits: String): List[String] = {
-    List("")
+    if (digits.isEmpty) return List()
+    val results = new ListBuffer[String]()
+    backTrack("", digits.toCharArray, 0, digits.length, results)
+    results.toList
+  }
+
+  def backTrack(line: String, digits: Array[Char], appendNth: Int, totalLength: Int, results: ListBuffer[String]): Unit = {
+    if (line.length == totalLength) {
+      results += line
+      return
+    }
+    NUM_TO_CHARS_MAP(digits(appendNth).toString).foreach(letter => {
+      backTrack(line + letter, digits, appendNth + 1, totalLength, results)
+    })
   }
 
   println(letterCombinations("23").mkString(","))
-
-  println(letterCombinations("").mkString(","))
-
-  println(letterCombinations("2").mkString(","))
+  //
+  //  println(letterCombinations("").mkString(","))
+  //
+  //  println(letterCombinations("2").mkString(","))
 }
