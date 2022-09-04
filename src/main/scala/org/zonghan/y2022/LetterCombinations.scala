@@ -33,9 +33,19 @@ object LetterCombinations extends App {
 
   def letterCombinations(digits: String): List[String] = {
     if (digits.isEmpty) return List()
-    val results = new ListBuffer[String]()
-    backTrack("", digits.toCharArray, 0, digits.length, results)
-    results.toList
+//    val results = new ListBuffer[String]()
+//    backTrack("", digits.toCharArray, 0, digits.length, results)
+
+//    results.toList
+//    backTrackV2("", digits.toCharArray, 0, digits.length)
+
+    digits.map(d => {NUM_TO_CHARS_MAP(d.toString)}).reduceLeft((l1, l2) => {
+      l1.flatMap(letter1 => {
+        l2.flatMap(letter2 => {
+          List(letter1 + letter2)
+        })
+      })
+    })
   }
 
   def backTrack(line: String, digits: Array[Char], appendNth: Int, totalLength: Int, results: ListBuffer[String]): Unit = {
@@ -45,6 +55,15 @@ object LetterCombinations extends App {
     }
     NUM_TO_CHARS_MAP(digits(appendNth).toString).foreach(letter => {
       backTrack(line + letter, digits, appendNth + 1, totalLength, results)
+    })
+  }
+
+  def backTrackV2(line: String, digits: Array[Char], appendNth: Int, totalLength: Int): List[String] = {
+    if (line.length == totalLength) {
+      return List(line)
+    }
+    NUM_TO_CHARS_MAP(digits(appendNth).toString).flatMap(letter => {
+      backTrackV2(line + letter, digits, appendNth + 1, totalLength)
     })
   }
 
