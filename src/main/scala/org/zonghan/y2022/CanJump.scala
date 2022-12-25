@@ -1,5 +1,6 @@
 package org.zonghan.y2022
 
+//https://leetcode.cn/problems/jump-game/solutions/203549/tiao-yue-you-xi-by-leetcode-solution/
 object CanJump extends App {
 
   /*
@@ -16,12 +17,29 @@ object CanJump extends App {
     解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。
   * */
 
+  // wrong solution
   def canJump(nums: Array[Int]): Boolean = {
-    true
+    jump(nums, 0)
+  }
+
+  def jump(nums: Array[Int], idx: Int): Boolean = {
+    if (idx == nums.length - 1) return true
+    if (nums(idx) == 0) return false
+    if (idx <= nums.length - 1) {
+      (1 to nums(idx)).foreach(len => {
+        if ((idx + len) > nums.length) return false
+        if (jump(nums, idx + len)) return true
+      })
+    }
+    idx == nums.length - 1
   }
 
 
-  println(s"can jump (2,3,1,1,4) : ${canJump(Array(2, 3, 1, 1, 4))}")
+//  println(s"can jump (2,3,1,1,4) : ${canJump(Array(2, 3, 1, 1, 4))}")
+//
+//  println(s"can jump (2,3,1,1,4) : ${canJump(Array(3, 2, 1, 0, 4))}")
 
-  println(s"can jump (2,3,1,1,4) : ${canJump(Array(3, 2, 1, 0, 4))}")
+  canJump(
+    (List(97) ::: (97 to 0).by(-1).toList ::: List(0)).toArray
+  )
 }
