@@ -1,4 +1,4 @@
-package org.zonghan.y2022
+package org.zonghan.y2023
 
 // https://leetcode.cn/problems/container-with-most-water/
 object MaxArea extends App {
@@ -21,7 +21,7 @@ object MaxArea extends App {
     0
   }
 
-  val case1 = Array(1,8,6,2,5,4,8,3,7)
+  val case1 = Array(1, 8, 6, 2, 5, 4, 8, 3, 7)
   println(maxArea(case1))
 
   val case2 = Array(1, 1)
