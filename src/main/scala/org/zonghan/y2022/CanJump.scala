@@ -17,6 +17,22 @@ object CanJump extends App {
     解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。
   * */
 
+  def canJumpCorrect(nums: Array[Int]): Boolean = {
+    var longestPoint = 0;
+    nums.zipWithIndex.foreach(data => {
+      val (num, idx) = data
+      if (longestPoint >= nums.length - 1) {
+        return true
+      }
+      if (longestPoint >= idx) { // can reach idx
+        if (idx + num > longestPoint) {
+          longestPoint = idx + num
+        }
+      } else return false
+    })
+    false
+  }
+
   // wrong solution
   def canJump(nums: Array[Int]): Boolean = {
     jump(nums, 0)
@@ -35,11 +51,15 @@ object CanJump extends App {
   }
 
 
-//  println(s"can jump (2,3,1,1,4) : ${canJump(Array(2, 3, 1, 1, 4))}")
-//
-//  println(s"can jump (2,3,1,1,4) : ${canJump(Array(3, 2, 1, 0, 4))}")
+  println(s"can jump (0) : ${canJumpCorrect(Array(0))}")
 
-  canJump(
-    (List(97) ::: (97 to 0).by(-1).toList ::: List(0)).toArray
-  )
+//  println(s"can jump (2,3,1,1,4) : ${canJumpCorrect(Array(2, 3, 1, 1, 4))}")
+//  //
+//  println(s"can jump (2,3,1,1,4) : ${canJumpCorrect(Array(3, 2, 1, 0, 4))}")
+//
+//  println(s"(List(97) ::: (97 to 0).by(-1).toList ::: List(0)).toArray : ${
+//    canJumpCorrect(
+//      (List(97) ::: (97 to 0).by(-1).toList ::: List(0)).toArray
+//    )
+//  }")
 }
